@@ -1,0 +1,66 @@
+body {
+    background-repeat: no-repeat;
+    margin: auto;	
+    width: 100%;
+    height: auto;
+    background-image:url("http://www.rattanshop24.de/Media/Shop/einkaufskorb_geflochten_aus_peddigrohr_2240_n.jpg");
+}
+
+h1 { 
+    font-family:garamond; 
+    background: rgba(0,0,0,0.1);
+    padding: 6px;
+}
+#DieOberenEingabefelder > form{  				
+    display: inline-block;
+} 
+#AddButton{										
+    max-width:28px;
+    vertical-align: middle;
+}
+.quantity{
+    display: inline-block; 
+    height:20px; 
+    width:70px; 
+    font-family:arial; 
+    font-weight:bold; 
+    font-size: 16px;
+    color:#000000; 
+    text-align:center; 
+    margin-top:2px; 
+}
+#TheList { 
+    font-family:freestyle script; 
+    font-size: 30px;
+    font-weight: bold;
+    color:#000000; 
+}
+#ListManager{								
+    padding:5px;
+    background: rgba(200,200,200,0.6);
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+}
+#ListManager > input{						
+    height:40px;
+    margin:0 10px;
+}
+/*
+	display: inline-block; rule means that the tag is not a complete block, thus it will not occupie the whole width of the browser
+	the two divs will be on the same top
+*/
+.Group1,.Group2{
+    display: inline-block;
+}
+/*
+	@media(max-width:400px) rule means that every style in it will be applied only if the browser's width is less that 400 pixels
+	and in out case, if the browser's width is less than 400px, the 2 divs will be complete blocks,thus each div will occupie the whole width,
+	the first div will be above the second one.
+*/
+
+@media(max-width:400px){
+    .Group1,.Group2{
+        display: block;
+        margin-bottom: 10px;
+    }
+}
