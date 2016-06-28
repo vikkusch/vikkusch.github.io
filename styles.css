@@ -3,7 +3,7 @@ body {
     margin: auto;	
     width: 100%;
     height: auto;
-    background-image: einkaufskorb_geflochten.jpg;
+    background-image: url("einkaufskorb_geflochten.jpg");
 }
 
 h1 { 
