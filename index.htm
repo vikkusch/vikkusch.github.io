@@ -1,0 +1,123 @@
+<!DOCTPYE html>
+<html lang="de">
+    <head>
+        <title>Nina und Vicky gehen shoppen</title>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+        <link rel="stylesheet" href="styles.css"/> 
+        <script src="https://code.jquery.com/jquery-compat-3.0.0-alpha1.js"></script>
+        <script src="js.cookie.js"></script>
+    </head>
+    <body> 
+
+        <h1>Einkaufsliste</h1> 
+
+        <div id="DieOberenEingabefelder">
+            <form name="checkListForm">
+                <div class="Group1">
+                    <span class="quantity">Anzahl</span> 
+                    <input type="text" value="10" name="quantity" maxlength="10" size="10" />
+                </div>
+                <div class="Group2">
+                    <span class="quantity">Produkt</span> 
+                    <input type="text" value="Bananen" name="checkListItem" /> 
+                </div>
+            </form>
+            <input id="AddButton" type="image" src="add.jpg" value="" />
+        </div>
+
+        <ul id="TheList"></ul>
+
+        <div id="ListManager">
+            <input id="DeleteAllButton" type="image" src="mülleimer.jpg" value="" />
+            <input id="Save" type="image" src="https://cdn2.iconfinder.com/data/icons/windows-8-metro-style/128/save.png" value="" /> 
+        </div>
+        <script>
+            $(function(){
+
+                console.log ("Starte Programm");
+                //Cookie lesen und Array speichern
+
+                var myList = new Array(); 
+                myList= Cookies.getJSON ("liste");
+                console.log ("Cookie gelesen");
+
+                //Array abklappern und in TheList schreiben
+                if(myList){ // wenn Cookies leer sind, myList undefined, dann wird die Schleife nicht ausgeführt 
+                    for (var i =0; i<myList.length ; i++){
+                        /*
+                            jedes item ist ein Teil von zwei Items (Inhalt & decoration)
+                            myList[i][0] ist der Inhalt
+                            myList[i][1] steht für die text decoration
+                        */
+                        $("#TheList").append("<li class='item' style='text-decoration:"+myList[i][1]+"'>" + myList[i][0] + "<img class='ItemRemover' style='height: 13px;position: relative;top: 2px;left: 3px;cursor:pointer' src='http://findicons.com/files/icons/2226/matte_basic/32/delete.png'/></li>"); 				
+                    }
+                }
+                $("input[name=quantity]").on("input",function(e){			//Fehlermeldung erscheint, sobald im Anzahl-Feld keine Zahlen eingegeben werden
+                    var NewVal = $(this).val();
+                    if(isNaN(Number(NewVal))){
+                        $(this).val(parseInt(NewVal))
+                        alert("Bitte nur Zahlen eingeben!");
+                    }
+
+                })
+                $("#AddButton").click(function() {
+                    var toAdd = $.trim($("input[name=checkListItem]").val()),
+                        toAddNum = $.trim($("input[name=quantity]").val()); 
+
+                    if(toAdd == "" || toAddNum == ""){alert("Bitte Felder ausfüllen.");return}
+                    $("#TheList").append("<li class='item'>" + toAddNum + " " + toAdd + "<img class='ItemRemover' style='height: 13px;position: relative;top: 2px;left: 3px;cursor:pointer' src='http://findicons.com/files/icons/2226/matte_basic/32/delete.png'/></li>"); 
+                    $("form input").val("");
+                }); 
+
+                $("#TheList").on("click",".ItemRemover",function(){
+                    $(this).parent().remove();
+                })
+
+                $(document).on("dblclick", ".item", function(){
+                    $(this).remove(); 
+                });   
+
+                $(document).on("click", ".item", function() {
+                    $(this).css('text-decoration', 'line-through'); 
+                });
+
+                $("#DeleteAllButton").on("click",function(){
+                    if($("#TheList > li").length == 0)return;
+                    if (confirm('Willst du wirklich alles löschen?')) {
+                        $("#TheList").empty()
+                    }
+                })
+
+                $("#Save").on("click",function(){
+                    if (!confirm('Einkaufsliste gespeichert'))return;
+
+
+
+                    // Daten aus UL-Liste auslesen und in String schreibe
+                    var myArray = new Array();
+
+                    //Daten sind in TheList in einzelnen li-Einträgen enthalten, Zugriff über $("#TheList")
+                    $( "li" ).each(function( index ) {
+                        console.log( index + ": " + $( this ).text() );
+                        /*
+                            myArray ist ein Array
+                            myArray.push schreibt Item in den Array (you can put strings, numbers or even arrays)
+                            jedes Item ist ein Array: der Inhalt & the decoration                        
+                        */
+                        myArray.push(Array($( this ).text(),$(this).css("text-decoration")));
+                    });
+
+                    // String in Cookie schreiben
+                    Cookies.set ("liste", myArray);
+
+
+                    console.log("Einkaufsliste gespeichert!");
+
+                })
+
+
+            })
+        </script>
+    </body> 
+</html>
