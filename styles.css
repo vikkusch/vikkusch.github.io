@@ -1,0 +1,58 @@
+body {
+    background-repeat: no-repeat;
+    margin: auto;	
+    width: 100%;
+    height: auto;
+    background-image: einkaufskorb_geflochten.jpg;
+}
+
+h1 { 
+    font-family:garamond; 
+    background: rgba(0,0,0,0.1);
+    padding: 6px;
+}
+#DieOberenEingabefelder > form{  				
+    display: inline-block;
+} 
+#AddButton{										
+    max-width:28px;
+    vertical-align: middle;
+}
+.quantity{
+    display: inline-block; 
+    height:20px; 
+    width:70px; 
+    font-family:arial; 
+    font-weight:bold; 
+    font-size: 16px;
+    color:#000000; 
+    text-align:center; 
+    margin-top:2px; 
+}
+#TheList { 
+    font-family:freestyle script; 
+    font-size: 30px;
+    font-weight: bold;
+    color:#000000; 
+}
+#ListManager{								
+    padding:5px;
+    background: rgba(200,200,200,0.6);
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+}
+#ListManager > input{						
+    height:40px;
+    margin:0 10px;
+}
+
+.Group1,.Group2{
+    display: inline-block;
+}
+
+@media(max-width:400px){
+    .Group1,.Group2{
+        display: block;
+        margin-bottom: 10px;
+    }
+}
